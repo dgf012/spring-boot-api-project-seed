@@ -15,6 +15,7 @@ import static com.company.project.project.core.ProjectConstant.*;
 
 /**
  * 代码生成器，根据数据表名称生成对应的Model、Mapper、Service、Controller简化开发。
+ * https://github.com/abel533/Mapper/tree/master/generator
  */
 public class CodeGenerator {
     //JDBC配置，请修改为你项目的实际配置
