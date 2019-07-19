@@ -1,11 +1,13 @@
-package ${basePackage}.service;
-import ${basePackage}.model.${modelNameUpperCamel};
-import ${basePackage}.core.Service;
+package ${package};
+import ${tableClass.fullClassName};
+import ${basePackage}.core.BaseService;
 
 
 /**
- * Created by ${author} on ${date}.
- */
-public interface ${modelNameUpperCamel}Service extends Service<${modelNameUpperCamel}> {
+* 通用 Mapper 代码生成器
+*
+* @author mapper-generator
+*/
+public interface ${tableClass.shortClassName}Service extends BaseService<${tableClass.shortClassName}> {
 
 }
