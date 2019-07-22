@@ -43,10 +43,8 @@ public class ${tableClass.shortClassName}Controller {
     }
 
     @GetMapping
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<${tableClass.shortClassName}> list = ${tableClass.variableName}Service.findAll();
-        PageInfo pageInfo = new PageInfo(list);
+    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+        PageInfo pageInfo = PageHelper.startPage(page, size).doSelectPageInfo(() -> ${tableClass.variableName}Service.findAll());
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 }
