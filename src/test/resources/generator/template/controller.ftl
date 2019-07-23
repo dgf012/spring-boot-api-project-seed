@@ -1,6 +1,8 @@
 package ${package};
+
+import ${basePackage}.core.PageRequest;
+import ${basePackage}.core.PageResponse;
 import ${basePackage}.core.Result;
-import ${basePackage}.core.ResultGenerator;
 import ${basePackage}.model.${tableClass.shortClassName};
 import ${basePackage}.service.${tableClass.shortClassName}Service;
 import com.github.pagehelper.PageHelper;
@@ -23,32 +25,30 @@ public class ${tableClass.shortClassName}Controller {
     @PostMapping("/add")
     public Result add(${tableClass.shortClassName} ${tableClass.variableName}) {
         ${tableClass.variableName}Service.save(${tableClass.variableName});
-        return ResultGenerator.genSuccessResult();
+        return Result.success();
     }
 
     @PostMapping("/delete")
     public Result delete(@RequestParam Integer id) {
         ${tableClass.variableName}Service.deleteById(id);
-        return ResultGenerator.genSuccessResult();
+        return Result.success();
     }
 
     @PostMapping("/update")
     public Result update(${tableClass.shortClassName} ${tableClass.variableName}) {
         ${tableClass.variableName}Service.update(${tableClass.variableName});
-        return ResultGenerator.genSuccessResult();
+        return Result.success();
     }
 
     @PostMapping("/detail")
     public Result detail(@RequestParam Integer id) {
         ${tableClass.shortClassName} ${tableClass.variableName} = ${tableClass.variableName}Service.findById(id);
-        return ResultGenerator.genSuccessResult(${tableClass.variableName});
+        return Result.success(${tableClass.variableName});
     }
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<${tableClass.shortClassName}> list = ${tableClass.variableName}Service.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+    public Result<PageResponse<${tableClass.shortClassName}>> list(@RequestBody PageRequest request) {
+        PageInfo<${tableClass.shortClassName}> pageInfo = PageHelper.startPage(request.getPageNum(), request.getPageSize()).doSelectPageInfo(() -> ${tableClass.variableName}Service.findAll());
+        return Result.success(PageResponse.getPage(pageInfo));
     }
 }

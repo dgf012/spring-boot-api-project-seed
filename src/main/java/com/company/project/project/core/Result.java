@@ -1,44 +1,92 @@
 package com.company.project.project.core;
 
-import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.util.StringUtils;
 
-/**
- * 统一API响应结果封装
- */
+@Setter
+@Getter
+@ToString
+@ApiModel
 public class Result<T> {
+    @ApiModelProperty("状态码")
     private int code;
+    @ApiModelProperty("返回消息")
     private String message;
+    @ApiModelProperty("返回数据")
     private T data;
 
-    public Result setCode(ResultCode resultCode) {
-        this.code = resultCode.code();
-        return this;
+    /**
+     * 成功结果
+     *
+     * @param message
+     * @return
+     */
+    public static Result<String> success(String message) {
+        return success(message, "");
     }
 
-    public int getCode() {
-        return code;
+    /**
+     * 成功结果
+     *
+     * @return
+     */
+    public static Result<String> success() {
+        return success("", "");
     }
 
-    public String getMessage() {
-        return message;
+    /**
+     * 成功结果
+     *
+     * @param data
+     * @return
+     */
+    public static <T> Result<T> success(T data) {
+        return success("", data);
     }
 
-    public Result setMessage(String message) {
-        this.message = message;
-        return this;
+    /**
+     * 成功结果
+     *
+     * @param message
+     * @param data
+     * @return
+     */
+    public static <T> Result<T> success(String message, T data) {
+        Result<T> result = new Result<>();
+        result.setData(data);
+        result.setCode(ResultCode.SUCCESS.code());
+        result.setMessage(StringUtils.isEmpty(message) ? ResultCode.SUCCESS.message() : message);
+
+        return result;
     }
 
-    public T getData() {
-        return data;
+    /**
+     * 失败结果
+     *
+     * @param message
+     * @return
+     */
+    public static Result fail(String message) {
+        return fail(ResultCode.FAIL.code(), message);
     }
 
-    public Result setData(T data) {
-        this.data = data;
-        return this;
+
+    /**
+     * 失败结果
+     *
+     * @param code
+     * @param message
+     * @return
+     */
+    public static Result fail(int code, String message) {
+        Result result = new Result();
+        result.setCode(code);
+        result.setMessage(message);
+        return result;
     }
 
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
 }

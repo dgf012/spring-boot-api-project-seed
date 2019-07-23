@@ -21,7 +21,7 @@ public class SwaggerConfigurer {
         return new Docket(DocumentationType.SWAGGER_2)
         .apiInfo(apiInfo())
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.bycdao.cloud"))
+        .apis(RequestHandlerSelectors.basePackage("com.company.project"))
         .paths(PathSelectors.any())
         .build();
     }

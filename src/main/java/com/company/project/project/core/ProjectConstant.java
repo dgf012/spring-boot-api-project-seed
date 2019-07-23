@@ -13,4 +13,6 @@ public class ProjectConstant {
     public static final String CONTROLLER_PACKAGE = BASE_PACKAGE + ".web";//生成的Controller所在包
 
     public static final String MAPPER_INTERFACE_REFERENCE = BASE_PACKAGE + ".core.BaseMapper";//Mapper插件基础接口的完全限定名
+
+    public static final int WEB_PAGE_SIZE_DEFAULT = 5; //默认分页大小
 }
