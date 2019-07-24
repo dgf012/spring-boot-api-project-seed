@@ -20,6 +20,7 @@ public class SwaggerConfigurer {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
         .apiInfo(apiInfo())
+        .groupName("接口列表")
         .select()
         .apis(RequestHandlerSelectors.basePackage("com.company.project"))
         .paths(PathSelectors.any())
