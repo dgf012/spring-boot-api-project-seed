@@ -9,6 +9,8 @@ public enum ResultCode {
     UNAUTHORIZED(401, "认证失败"),//未认证（签名错误）
     NOT_FOUND(404, "接口不存在"),//接口不存在
     INTERNAL_SERVER_ERROR(500, "服务器内部错误"),//服务器内部错误
+    ARGUMENTS_VALID_ERROR(501, "参数绑定或校验错误"),
+    JSON_VALID_ERROR(502, "JSON格式错误"),
     UNKONW(999, "未知异常，请联系客服");
 
     private final int code;

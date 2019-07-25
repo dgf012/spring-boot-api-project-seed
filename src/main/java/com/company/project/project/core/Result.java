@@ -7,10 +7,10 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.util.StringUtils;
 
+@ApiModel
 @Setter
 @Getter
 @ToString
-@ApiModel
 public class Result<T> {
     @ApiModelProperty("状态码")
     private int code;

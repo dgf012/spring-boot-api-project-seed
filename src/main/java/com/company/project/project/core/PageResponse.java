@@ -9,10 +9,10 @@ import lombok.ToString;
 
 import java.util.List;
 
+@ApiModel
 @Setter
 @Getter
 @ToString
-@ApiModel
 public class PageResponse<E> {
 
     @ApiModelProperty("页码")
@@ -29,11 +29,11 @@ public class PageResponse<E> {
      * @param <E>
      * @return
      */
-    public static <E> PageResponse<E> getPage(PageInfo<E> pageInfo) {
+    public static <E> PageResponse<E> getPage(PageInfo pageInfo, List<E> list) {
         PageResponse<E> page = new PageResponse<>();
         page.setPageNum(pageInfo.getPageNum());
         page.setTotal(pageInfo.getTotal());
-        page.setList(pageInfo.getList());
+        page.setList(list);
         return page;
     }
 }
