@@ -12,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Example;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Api(tags = "${tableClass.introspectedTable.remarks}", description = "${tableClass.introspectedTable.remarks}")
 @RestController
 @RequestMapping("/${tableClass.tableName?replace('_','/')}")
@@ -35,6 +37,7 @@ public class ${tableClass.shortClassName}Controller {
         ${tableClass.shortClassName} ${tableClass.variableName} = new ${tableClass.shortClassName}();
         BeanUtils.copyProperties(${tableClass.variableName}VO, ${tableClass.variableName});
         ${tableClass.variableName}Service.save(${tableClass.variableName});
+        log.info("新增${tableClass.introspectedTable.remarks}: {}", ${tableClass.variableName});
         return Result.success();
     }
 
@@ -43,6 +46,7 @@ public class ${tableClass.shortClassName}Controller {
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         ${tableClass.variableName}Service.deleteById(id);
+        log.info("删除${tableClass.introspectedTable.remarks},id : {}", id);
         return Result.success();
     }
 
@@ -52,6 +56,7 @@ public class ${tableClass.shortClassName}Controller {
         ${tableClass.shortClassName} ${tableClass.variableName} = new ${tableClass.shortClassName}();
         BeanUtils.copyProperties(${tableClass.variableName}VO, ${tableClass.variableName});
         ${tableClass.variableName}Service.update(${tableClass.variableName});
+        log.info("更新${tableClass.introspectedTable.remarks}: {}", ${tableClass.variableName});
         return Result.success();
     }
 
@@ -60,7 +65,9 @@ public class ${tableClass.shortClassName}Controller {
     @GetMapping("/{id}")
     public Result detail(@PathVariable Integer id) {
         ${tableClass.shortClassName} ${tableClass.variableName} = ${tableClass.variableName}Service.findById(id);
-        return Result.success(${tableClass.variableName});
+        ${tableClass.shortClassName}VO ${tableClass.variableName}VO = new ${tableClass.shortClassName}VO();
+        BeanUtils.copyProperties(${tableClass.variableName}, ${tableClass.variableName}VO);
+        return Result.success(${tableClass.variableName}VO);
     }
 
     @ApiOperation(value = "查看${tableClass.introspectedTable.remarks}列表", notes = "查看${tableClass.introspectedTable.remarks}列表")
