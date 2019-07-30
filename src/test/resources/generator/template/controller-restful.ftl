@@ -7,6 +7,7 @@ import ${basePackage}.service.${tableClass.shortClassName}Service;
 import ${basePackage}.web.${tableClass.tableName?replace('_','.')}.${tableClass.shortClassName}VO;
 import ${basePackage}.web.${tableClass.tableName?replace('_','.')}.${tableClass.shortClassName}ListVO;
 import ${basePackage}.web.${tableClass.tableName?replace('_','.')}.${tableClass.shortClassName}SearchVO;
+import ${basePackage}.validation.UpdateGroups;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -14,12 +15,14 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +55,7 @@ public class ${tableClass.shortClassName}Controller {
 
     @ApiOperation(value = "更新${tableClass.introspectedTable.remarks}", notes = "更新${tableClass.introspectedTable.remarks}")
     @PutMapping("update")
-    public Result update(@Valid @RequestBody ${tableClass.shortClassName}VO ${tableClass.variableName}VO) {
+    public Result update(@Validated({UpdateGroups.class, Default.class}) @RequestBody ${tableClass.shortClassName}VO ${tableClass.variableName}VO) {
         ${tableClass.shortClassName} ${tableClass.variableName} = new ${tableClass.shortClassName}();
         BeanUtils.copyProperties(${tableClass.variableName}VO, ${tableClass.variableName});
         ${tableClass.variableName}Service.update(${tableClass.variableName});

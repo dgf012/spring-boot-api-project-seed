@@ -1,5 +1,6 @@
 package ${basePackage}.web.${tableClass.tableName?replace('_','.')};
 
+import ${basePackage}.validation.UpdateGroups;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -26,7 +27,8 @@ public class ${tableClass.shortClassName}VO {
 
 <#if tableClass.pkFields??>
     <#list tableClass.pkFields as field>
-    @ApiModelProperty(value = "${field.remarks}", example = "")
+    @ApiModelProperty(value = "${(field.remarks!="")?string(field.remarks,"ID")}(新增时不填，更新时必填)", example = "")
+    @NotNull(message = "${(field.remarks!="")?string(field.remarks,"ID")}不能为空", groups = UpdateGroups.class)
     <#--<#if field.stringColumn && !field.nullable>-->
     <#--@NotBlank(message = "${field.remarks}不能为空")-->
     <#--</#if>-->
