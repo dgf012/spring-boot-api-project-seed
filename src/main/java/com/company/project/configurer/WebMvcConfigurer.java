@@ -60,11 +60,8 @@ public class WebMvcConfigurer implements org.springframework.web.servlet.config.
                (2)由于是list结构，我们添加的fastjson在最后。因此必须要将jackson的转换器删除，不然会先匹配上jackson，导致没使用fastjson
 36
         */
-        for (int i = converters.size() - 1; i >= 0; i--) {
-            if (converters.get(i) instanceof MappingJackson2HttpMessageConverter) {
-                converters.remove(i);
-            }
-        }
+        converters.removeIf(converter -> converter instanceof MappingJackson2HttpMessageConverter);
+
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         //自定义fastjson配置
         FastJsonConfig config = new FastJsonConfig();
