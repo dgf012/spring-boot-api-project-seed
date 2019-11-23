@@ -18,6 +18,6 @@ import javax.annotation.Resource;
 @Service
 public class ${tableClass.shortClassName}ServiceImpl extends AbstractService<${tableClass.shortClassName}> implements ${tableClass.shortClassName}Service {
     @Resource
-    private ${tableClass.shortClassName}Mapper ${tableClass.shortClassName}Mapper;
+    private ${tableClass.shortClassName}Mapper ${tableClass.variableName}Mapper;
 
 }

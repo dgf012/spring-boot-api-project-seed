@@ -1,4 +1,4 @@
-package ${basePackage}.web.${tableClass.tableName?replace('_','.')};
+package ${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName};
 
 import ${basePackage}.validation.UpdateGroups;
 import io.swagger.annotations.ApiModel;

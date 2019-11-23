@@ -73,7 +73,7 @@
         <!--controller-restful-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             <property name="targetProject" value="${targetProject}"/>
-            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?replace('_','.')}"/>
+            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName}"/>
             <property name="templatePath" value="generator/template/controller-restful.ftl"/>
             <property name="basePackage" value="${basePackage}"/>
             <property name="fileName" value="${tableClass.shortClassName}Controller.java"/>
@@ -82,7 +82,7 @@
         <!-- model-vo-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             <property name="targetProject" value="${targetProject}"/>
-            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?replace('_','.')}"/>
+            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName}"/>
             <property name="templatePath" value="generator/template/model-vo.ftl"/>
             <property name="basePackage" value="${basePackage}"/>
             <property name="fileName" value="${tableClass.shortClassName}VO.java"/>
@@ -90,7 +90,7 @@
         <!-- model-search-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             <property name="targetProject" value="${targetProject}"/>
-            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?replace('_','.')}"/>
+            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName}"/>
             <property name="templatePath" value="generator/template/model-search.ftl"/>
             <property name="basePackage" value="${basePackage}"/>
             <property name="fileName" value="${tableClass.shortClassName}SearchVO.java"/>
@@ -98,7 +98,7 @@
         <!-- model-list-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             <property name="targetProject" value="${targetProject}"/>
-            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?replace('_','.')}"/>
+            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName}"/>
             <property name="templatePath" value="generator/template/model-list.ftl"/>
             <property name="basePackage" value="${basePackage}"/>
             <property name="fileName" value="${tableClass.shortClassName}ListVO.java"/>
@@ -115,7 +115,7 @@
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/test?useInformationSchema=True&amp;useUnicode=true&amp;characterEncoding=UTF8&amp;serverTimezone=GMT"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/vue?useInformationSchema=True&amp;useUnicode=true&amp;characterEncoding=UTF8&amp;serverTimezone=GMT"
                         userId="root"
                         password="123456">
         </jdbcConnection>
@@ -127,7 +127,7 @@
         <!--MyBatis 生成器 Mapper-->
         <javaClientGenerator targetPackage="${basePackage}.mapper" targetProject="${targetProject}" type="XMLMAPPER"/>
 
-        <table tableName="sys_users">
+        <table tableName="sys_user">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
 

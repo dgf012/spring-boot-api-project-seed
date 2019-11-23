@@ -1,12 +1,9 @@
-package ${basePackage}.web.${tableClass.tableName?replace('_','.')};
+package ${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName};
 
 import ${basePackage}.core.PageResponse;
 import ${basePackage}.core.Result;
 import ${basePackage}.model.${tableClass.shortClassName};
 import ${basePackage}.service.${tableClass.shortClassName}Service;
-import ${basePackage}.web.${tableClass.tableName?replace('_','.')}.${tableClass.shortClassName}VO;
-import ${basePackage}.web.${tableClass.tableName?replace('_','.')}.${tableClass.shortClassName}ListVO;
-import ${basePackage}.web.${tableClass.tableName?replace('_','.')}.${tableClass.shortClassName}SearchVO;
 import ${basePackage}.validation.UpdateGroups;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,7 +26,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "${tableClass.introspectedTable.remarks}", description = "${tableClass.introspectedTable.remarks}")
 @RestController
-@RequestMapping("/${tableClass.tableName?replace('_','/')}")
+@RequestMapping("/${tableClass.tableName?split('_')[0]}/${tableClass.variableName}")
 public class ${tableClass.shortClassName}Controller {
     @Resource
     private ${tableClass.shortClassName}Service ${tableClass.variableName}Service;
@@ -78,7 +75,7 @@ public class ${tableClass.shortClassName}Controller {
     public Result<PageResponse<${tableClass.shortClassName}ListVO>> list(@RequestBody ${tableClass.shortClassName}SearchVO searchVO) {
         //TODO 根据实际修改
         WeekendSqls<${tableClass.shortClassName}> custom = WeekendSqls.custom();
-        custom.andEqualTo(SysUsers::getId, searchVO.getId());
+        custom.andEqualTo(${tableClass.shortClassName}::getId, searchVO.getId());
         Example example = Example.builder(${tableClass.shortClassName}.class)
             .where(custom)
             .orderByDesc("id")
