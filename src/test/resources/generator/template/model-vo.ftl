@@ -1,4 +1,4 @@
-package ${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName};
+package ${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.lowerCaseName};
 
 import ${basePackage}.validation.UpdateGroups;
 import io.swagger.annotations.ApiModel;
@@ -59,8 +59,8 @@ public class ${tableClass.shortClassName}VO {
     @Length(max = ${field.length}, message = "${field.remarks}不能超过{max}个字")
     </#if>
     <#if field.shortTypeName=="Integer" || field.shortTypeName=="Long" >
-    @Min(value = 0, message = "性别最大不能超过{value}")
-    @Max(value = ${field.length}, message = "性别最大不能超过{value}")
+    @Min(value = 0, message = "${field.remarks}最大不能超过{value}")
+    @Max(value = ${field.length}, message = "${field.remarks}最大不能超过{value}")
     </#if>
     <#if field.shortTypeName=="Date" >
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")

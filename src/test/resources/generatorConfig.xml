@@ -65,7 +65,7 @@
         <!--serviceImpl-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             <property name="targetProject" value="${targetProject}"/>
-            <property name="targetPackage" value="${basePackage}.service.serviceImpl"/>
+            <property name="targetPackage" value="${basePackage}.service.serviceimpl"/>
             <property name="templatePath" value="generator/template/service-impl.ftl"/>
             <property name="basePackage" value="${basePackage}"/>
             <property name="fileName" value="${tableClass.shortClassName}ServiceImpl.java"/>
@@ -73,7 +73,7 @@
         <!--controller-restful-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             <property name="targetProject" value="${targetProject}"/>
-            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName}"/>
+            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.lowerCaseName}"/>
             <property name="templatePath" value="generator/template/controller-restful.ftl"/>
             <property name="basePackage" value="${basePackage}"/>
             <property name="fileName" value="${tableClass.shortClassName}Controller.java"/>
@@ -82,7 +82,7 @@
         <!-- model-vo-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             <property name="targetProject" value="${targetProject}"/>
-            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName}"/>
+            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.lowerCaseName}"/>
             <property name="templatePath" value="generator/template/model-vo.ftl"/>
             <property name="basePackage" value="${basePackage}"/>
             <property name="fileName" value="${tableClass.shortClassName}VO.java"/>
@@ -90,7 +90,7 @@
         <!-- model-search-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             <property name="targetProject" value="${targetProject}"/>
-            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName}"/>
+            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.lowerCaseName}"/>
             <property name="templatePath" value="generator/template/model-search.ftl"/>
             <property name="basePackage" value="${basePackage}"/>
             <property name="fileName" value="${tableClass.shortClassName}SearchVO.java"/>
@@ -98,24 +98,24 @@
         <!-- model-list-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             <property name="targetProject" value="${targetProject}"/>
-            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName}"/>
+            <property name="targetPackage" value="${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.lowerCaseName}"/>
             <property name="templatePath" value="generator/template/model-list.ftl"/>
             <property name="basePackage" value="${basePackage}"/>
             <property name="fileName" value="${tableClass.shortClassName}ListVO.java"/>
         </plugin>
 
-        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
-        <property name="targetProject" value="${targetProject}"/>
-        <property name="targetPackage" value="${basePackage}.one"/>
-        <property name="templatePath" value="generator/template/test-one.ftl"/>
-        <property name="fileName" value="${tableClass.shortClassName}Test.txt"/>
-        <!--默认值是下面这个，可以不配置-->
-        <property name="templateFormatter"
-        value="tk.mybatis.mapper.generator.formatter.FreemarkerTemplateFormatter"/>
-        </plugin>
+        <!--<plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">-->
+        <!--<property name="targetProject" value="${targetProject}"/>-->
+        <!--<property name="targetPackage" value="${basePackage}.one"/>-->
+        <!--<property name="templatePath" value="generator/template/test-one.ftl"/>-->
+        <!--<property name="fileName" value="${tableClass.shortClassName}Test.txt"/>-->
+        <!--&lt;!&ndash;默认值是下面这个，可以不配置&ndash;&gt;-->
+        <!--<property name="templateFormatter"-->
+        <!--value="tk.mybatis.mapper.generator.formatter.FreemarkerTemplateFormatter"/>-->
+        <!--</plugin>-->
 
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/vue?useInformationSchema=True&amp;useUnicode=true&amp;characterEncoding=UTF8&amp;serverTimezone=GMT"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/mee?useInformationSchema=True&amp;useUnicode=true&amp;characterEncoding=UTF8&amp;serverTimezone=GMT"
                         userId="root"
                         password="123456">
         </jdbcConnection>
@@ -127,7 +127,10 @@
         <!--MyBatis 生成器 Mapper-->
         <javaClientGenerator targetPackage="${basePackage}.mapper" targetProject="${targetProject}" type="XMLMAPPER"/>
 
-        <table tableName="sys_user">
+        <!-- 指定数据库，防止重名表多次生成 -->
+        <table tableName="sys_user" schema="mee" catalog="mee">
+            <!-- 指定生成数据没有schema或者catalog修饰符 -->
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
 

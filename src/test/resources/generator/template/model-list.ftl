@@ -1,4 +1,4 @@
-package ${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.variableName};
+package ${basePackage}.web.${tableClass.tableName?split('_')[0]}.${tableClass.lowerCaseName};
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
