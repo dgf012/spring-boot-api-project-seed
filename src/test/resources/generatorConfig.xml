@@ -128,11 +128,21 @@
         <javaClientGenerator targetPackage="${basePackage}.mapper" targetProject="${targetProject}" type="XMLMAPPER"/>
 
         <!-- 指定数据库，防止重名表多次生成 -->
-        <table tableName="sys_user" schema="mee" catalog="mee">
+        <table tableName="mcd" schema="mcd" catalog="mcd">
             <!-- 指定生成数据没有schema或者catalog修饰符 -->
             <property name="ignoreQualifiersAtRuntime" value="true"/>
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
+        <table tableName="mcd_complain" schema="mcd" catalog="mcd">
+            <!-- 指定生成数据没有schema或者catalog修饰符 -->
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <!--<table tableName="mcd_reply" schema="mcd" catalog="mcd">-->
+            <!--&lt;!&ndash; 指定生成数据没有schema或者catalog修饰符 &ndash;&gt;-->
+            <!--<property name="ignoreQualifiersAtRuntime" value="true"/>-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
 
     </context>
 </generatorConfiguration>
