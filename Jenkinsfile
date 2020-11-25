@@ -24,7 +24,7 @@ pipeline {
                             cleanRemote: true,
                             sourceFiles: '**/*.war',
                             removePrefix: 'target',
-                            execCommand: 'D:/java-deploy/upload/deploy.bat'
+                            execCommand: 'D:/java-deploy/test.bat'
                         )
                     ]
                 )
