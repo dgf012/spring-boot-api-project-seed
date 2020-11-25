@@ -15,7 +15,7 @@ pipeline {
 
     stage('deploy') {
       steps {
-        sshPublisher()
+        build(job: 'tt', wait: true)
       }
     }
 
