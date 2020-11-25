@@ -15,7 +15,21 @@ pipeline {
 
     stage('deploy') {
       steps {
-        sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.100.19', transfers: [sshTransfer(cleanRemote: false, sourceFiles: '**/*.war')])])
+        sshPublisher(
+            publishers: [
+                sshPublisherDesc(
+                    configName: '192.168.100.19',
+                    transfers: [
+                        sshTransfer(
+                            cleanRemote: true,
+                            sourceFiles: '**/*.war'，
+                            removePrefix: 'target',
+                            execCommand: 'D:/java-deploy/upload/deploy.bat'
+                        )
+                    ]
+                )
+            ]
+        )
       }
     }
 
