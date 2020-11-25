@@ -22,7 +22,7 @@ pipeline {
                     transfers: [
                         sshTransfer(
                             cleanRemote: true,
-                            sourceFiles: '**/*.war'，
+                            sourceFiles: '**/*.war',
                             removePrefix: 'target',
                             execCommand: 'D:/java-deploy/upload/deploy.bat'
                         )
