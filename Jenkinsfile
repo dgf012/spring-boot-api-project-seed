@@ -15,7 +15,7 @@ pipeline {
 
     stage('deploy') {
       steps {
-        sshPublisher()
+        sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.100.19', transfers: [sshTransfer(cleanRemote: false, sourceFiles: '**/*.war')])])
       }
     }
 
