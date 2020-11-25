@@ -13,5 +13,11 @@ pipeline {
       }
     }
 
+    stage('deploy') {
+      steps {
+        sshPublisher()
+      }
+    }
+
   }
 }
