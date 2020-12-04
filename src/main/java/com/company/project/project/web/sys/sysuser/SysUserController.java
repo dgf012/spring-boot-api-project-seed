@@ -11,7 +11,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Example;
@@ -21,6 +25,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.groups.Default;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -31,12 +36,20 @@ public class SysUserController {
     @Resource
     private SysUserService sysUserService;
 
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
     @ApiOperation(value = "新增", notes = "新增")
     @PostMapping("/add")
     public Result add(@Valid @RequestBody SysUserVO sysUserVO) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserVO, sysUser);
-        sysUserService.save(sysUser);
+//        sysUserService.save(sysUser);
+
+        CorrelationData correlationData = new CorrelationData("1234567890"+new Date());
+        rabbitTemplate.convertAndSend("TestDirectExchange", "TestDirectRouting", sysUser, correlationData);
+
+
         log.info("新增: {}", sysUser);
         return Result.success();
     }
