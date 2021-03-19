@@ -1,5 +1,6 @@
 package com.company.project.configurer;
 
+import com.company.project.project.exception.ServiceException;
 import com.company.project.project.model.SysUser;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
@@ -52,25 +53,25 @@ public class RabbitMQConfigurer {
 //        cvter.
 
         rabbitTemplate.setMessageConverter(converter());
-        rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
-            @Override
-            public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                System.out.println("ConfirmCallback:     "+"相关数据："+correlationData);
-                System.out.println("ConfirmCallback:     "+"确认情况："+ack);
-                System.out.println("ConfirmCallback:     "+"原因："+cause);
-            }
-        });
-
-        rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
-            @Override
-            public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
-                System.out.println("ReturnCallback:     "+"消息："+message);
-                System.out.println("ReturnCallback:     "+"回应码："+replyCode);
-                System.out.println("ReturnCallback:     "+"回应信息："+replyText);
-                System.out.println("ReturnCallback:     "+"交换机："+exchange);
-                System.out.println("ReturnCallback:     "+"路由键："+routingKey);
-            }
-        });
+//        rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
+//            @Override
+//            public void confirm(CorrelationData correlationData, boolean ack, String cause) {
+//                System.out.println("ConfirmCallback:     "+"相关数据："+correlationData);
+//                System.out.println("ConfirmCallback:     "+"确认情况："+ack);
+//                System.out.println("ConfirmCallback:     "+"原因："+cause);
+//            }
+//        });
+//
+//        rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
+//            @Override
+//            public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
+//                System.out.println("ReturnCallback:     "+"消息："+message);
+//                System.out.println("ReturnCallback:     "+"回应码："+replyCode);
+//                System.out.println("ReturnCallback:     "+"回应信息："+replyText);
+//                System.out.println("ReturnCallback:     "+"交换机："+exchange);
+//                System.out.println("ReturnCallback:     "+"路由键："+routingKey);
+//            }
+//        });
 
         return rabbitTemplate;
     }

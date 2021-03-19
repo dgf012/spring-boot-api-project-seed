@@ -97,6 +97,27 @@
         </filter>
     </appender>
 
+    <!-- rabbitmq消费失败的数据记录，以便后续处理 -->
+    <appender name="MESSAGE-ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/message_error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/message_error_%d{yyyy-MM-dd}.log.%i.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>20MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
     <!--
         <logger>用来设置某一个包或者具体的某一个类的日志打印级别、
         以及指定<appender>。<logger>仅有一个name属性，
@@ -144,6 +165,10 @@
             <appender-ref ref="APP_INFO"/>
             <appender-ref ref="APP_ERROR"/>
         </root>
+        <!--处理失败的消息日志-->
+        <logger name="message-error" level="error">
+            <appender-ref ref="MESSAGE-ERROR"/>
+        </logger>
     </springProfile>
 
     <springProfile name="prod">
@@ -152,5 +177,9 @@
             <appender-ref ref="APP_INFO"/>
             <appender-ref ref="APP_ERROR"/>
         </root>
+        <!--处理失败的消息日志-->
+        <logger name="message-error" level="error">
+            <appender-ref ref="MESSAGE-ERROR"/>
+        </logger>
     </springProfile>
 </configuration>

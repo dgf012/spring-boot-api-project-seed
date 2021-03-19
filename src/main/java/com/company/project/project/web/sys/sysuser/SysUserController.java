@@ -1,5 +1,6 @@
 package com.company.project.project.web.sys.sysuser;
 
+import com.company.project.configurer.DirectRabbitConfig;
 import com.company.project.project.core.PageResponse;
 import com.company.project.project.core.Result;
 import com.company.project.project.model.SysUser;
@@ -46,12 +47,19 @@ public class SysUserController {
         BeanUtils.copyProperties(sysUserVO, sysUser);
 //        sysUserService.save(sysUser);
 
-        CorrelationData correlationData = new CorrelationData("1234567890"+new Date());
-        rabbitTemplate.convertAndSend("TestDirectExchange", "TestDirectRouting", sysUser, correlationData);
+//        boolean sendFlag = rabbitTemplate.invoke(operations -> {
+            CorrelationData correlationData = new CorrelationData("1234567890"+new Date());
+            rabbitTemplate.convertAndSend(DirectRabbitConfig.EXCHANGE_NAME, DirectRabbitConfig.ROUTING_NAME, sysUser, correlationData);
+//            return rabbitTemplate.waitForConfirms(2 * 1000);
+//        });
+//
+//        if(sendFlag){
+            log.info("新增: {}", sysUser);
+            return Result.success();
+//        }else{
+//            return Result.fail("error");
+//        }
 
-
-        log.info("新增: {}", sysUser);
-        return Result.success();
     }
 
     @ApiOperation(value = "删除", notes = "删除")
