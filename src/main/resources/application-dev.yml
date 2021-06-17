@@ -9,12 +9,17 @@ spring:
         url: jdbc:mysql://192.168.100.19:3306/test_db?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT
         username: root
         password: 123456
+#        stat-view-servlet:
+#          enabled: true
+#          url-pattern: /druid/*
+        filters: stat
       slave0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://192.168.23.227:3306/test_db?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT
         username: root
         password: 123456
+        filters: stat
 #      slave1:
 #        type: com.alibaba.druid.pool.DruidDataSource
 #        driver-class-name: com.mysql.jdbc.Driver
